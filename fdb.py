@@ -27,6 +27,7 @@ class Structure:
 
             else:
                 os.mkdir(f"./databases/{database_name}")
+                os.mkdir(f"./databases/{database_name}/schemas")
                 return self._structure
 
         except:
@@ -35,13 +36,13 @@ class Structure:
     def AddTable(self, database_name: str, table_name: str):
 
         if isinstance(table_name, str):
-            if os.path.exists(f'./databases/{database_name}/{table_name}.schema.fdb'):
+            if os.path.exists(f'./databases/{database_name}/schemas/{table_name}.schema.fdb'):
                 print(f'Table "{table_name}" already exists')
                 pass
             else:
                 my_dict = {table_name: {'schema': {}}}
 
-                with open(f'./databases/{database_name}/{table_name}.schema.fdb', 'w') as FILE:
+                with open(f'./databases/{database_name}/schemas/{table_name}.schema.fdb', 'w') as FILE:
                     FILE.write(json.dumps(my_dict, indent=4))
 
             if os.path.exists(f'./databases/{database_name}/{table_name}.fdb'):
@@ -52,13 +53,13 @@ class Structure:
 
         else:
             for i in table_name:
-                if os.path.exists(f'./databases/{database_name}/{i}.schema.fdb'):
+                if os.path.exists(f'./databases/{database_name}/schemas/{i}.schema.fdb'):
                     print(f'Table "{i}" already exists')
                     pass
                 else:
                     my_dict = {i: {'schema': {}}}
                     print(my_dict)
-                    with open(f'./databases/{database_name}/{i}.schema.fdb', 'w') as FILE:
+                    with open(f'./databases/{database_name}/schemas/{i}.schema.fdb', 'w') as FILE:
                         FILE.write(json.dumps(my_dict, indent=4))
 
                 if os.path.exists(f'./databases/{database_name}/{i}.fdb'):
@@ -95,7 +96,7 @@ class Structure:
     def _LoadData(self, database_name, table_name):
 
         try:
-            with open(f'./databases/{database_name}/{table_name}.schema.fdb', 'r') as FILE:
+            with open(f'./databases/{database_name}/schemas/{table_name}.schema.fdb', 'r') as FILE:
                 self._structure = json.load(FILE)
 
             return self._structure
@@ -106,7 +107,7 @@ class Structure:
     def _SaveData(self, database_name, table_name, data):
 
         try:
-            with open(f'./databases/{database_name}/{table_name}.schema.fdb', 'w') as FILE:
+            with open(f'./databases/{database_name}/schemas/{table_name}.schema.fdb', 'w') as FILE:
                 FILE.write(json.dumps(data, indent=4))
 
             return self._structure
@@ -128,7 +129,7 @@ class database:
     def SelectTable(self, table_name: str):
         self._table_name = table_name
         try:
-            with open(f'./databases/{self._database_name}/{self._table_name}.schema.fdb', 'r') as FILE:
+            with open(f'./databases/{self._database_name}/schemas/{self._table_name}.schema.fdb', 'r') as FILE:
                 data = json.load(FILE)
             self._structure = data[table_name]['schema']
         except:
@@ -139,10 +140,6 @@ class database:
         table_name = self._table_name
 
         def _SaveData(db, tbl, content):
-            if os.path.exists(f'./databases/{db}/{tbl}.fdb'):
-                pass
-            else:
-                open(f'./databases/{db}/{tbl}.fdb', 'a').close()
 
             content = re.sub("\s+", "", json.dumps(content))
 
