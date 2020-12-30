@@ -1,6 +1,6 @@
 import json
 import os
-import ErrorHandler
+from lib import ErrorHandler
 import re
 
 
@@ -43,7 +43,12 @@ class Structure:
 
                 with open(f'./databases/{database_name}/{table_name}.schema.fdb', 'w') as FILE:
                     FILE.write(json.dumps(my_dict, indent=4))
-                return self._structure
+
+            if os.path.exists(f'./databases/{database_name}/{table_name}.fdb'):
+                pass
+            else:
+                open(f'./databases/{database_name}/{table_name}.fdb', "w")
+            return self._structure
 
         else:
             for i in table_name:
@@ -55,6 +60,12 @@ class Structure:
                     print(my_dict)
                     with open(f'./databases/{database_name}/{i}.schema.fdb', 'w') as FILE:
                         FILE.write(json.dumps(my_dict, indent=4))
+
+                if os.path.exists(f'./databases/{database_name}/{i}.fdb'):
+                    pass
+
+                else:
+                    open(f'./databases/{database_name}/{i}.fdb', "w")
             return self._structure
 
     def AddField(self, database_name: str, table_name: str, field_name):
@@ -270,4 +281,4 @@ class database:
             os.rmdir(f'./databases/{self._database_name}')
 
         else:
-            raise ErrorHandler.DeleteDatabase(self._database_name, self._table_name)
+            raise ErrorHandler.DeleteDatabase(self._database_name)
