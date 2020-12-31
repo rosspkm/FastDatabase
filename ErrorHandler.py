@@ -71,3 +71,8 @@ class DeleteDatabase(Exception):
 class DeleteTable(Exception):
     def __init__(self, database_name, table_name):
         super(DeleteDatabase, self).__init__(f'Could not delete the table "{table_name}" from the database "{database_name}", maybe it does not exist')
+
+
+class ShowTable(Exception):
+    def __init__(self, database_name, table_name):
+        super(ShowTable, self).__init__(f'Could not load data of table "{table_name}" from the database "{database_name}", maybe it does not exist')
