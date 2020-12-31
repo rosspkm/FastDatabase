@@ -204,7 +204,7 @@ class database:
                         output = json.loads(i)
                         break
             else:
-                raise ErrorHandler.Find(entries, self._table_name)
+                print(f'"{entries}" is/are not in the table "{self._table_name}"')
         return output
 
     def GetAll(self, entry: dict):
@@ -228,7 +228,7 @@ class database:
                     if matched == len(entry.keys()):
                         output.append(json.loads(i))
             else:
-                raise ErrorHandler.Find(entries, self._table_name)
+                print(f'"{entries}" is/are not in the table "{self._table_name}"')
         return output
 
     def Delete(self, entry: dict):
