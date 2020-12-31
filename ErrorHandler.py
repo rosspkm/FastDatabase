@@ -53,11 +53,6 @@ class Duplicate(Exception):
         super(Duplicate, self).__init__(f'"{content}" is a duplicate entry')
 
 
-class Find(Exception):
-    def __init__(self, entries, table):
-        super(Find, self).__init__(f'"{entries}" is/are not in the table "{table}"')
-
-
 class InvalidField(Exception):
     def __init__(self, field):
         super(InvalidField, self).__init__(f'{field} was passed and was not a valid field')
