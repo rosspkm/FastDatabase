@@ -33,7 +33,7 @@ class Structure:
         except:
             raise ErrorHandler.DatabaseCreation(database_name)
 
-    def AddTable(self, database_name: str, table_name: str):
+    def AddTable(self, database_name: str, table_name):
 
         if isinstance(table_name, str):
             if os.path.exists(f'./databases/{database_name}/schemas/{table_name}.schema.fdb'):
@@ -58,7 +58,6 @@ class Structure:
                     pass
                 else:
                     my_dict = {i: {'schema': {}}}
-                    print(my_dict)
                     with open(f'./databases/{database_name}/schemas/{i}.schema.fdb', 'w') as FILE:
                         FILE.write(json.dumps(my_dict, indent=4))
 
