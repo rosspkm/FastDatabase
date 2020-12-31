@@ -203,9 +203,10 @@ class database:
                     if matched == len(entry.keys()):
                         output = json.loads(i)
                         break
+                return output
             else:
                 print(f'"{entries}" is/are not in the table "{self._table_name}"')
-        return output
+                return None
 
     def GetAll(self, entry: dict):
 
@@ -227,9 +228,10 @@ class database:
 
                     if matched == len(entry.keys()):
                         output.append(json.loads(i))
+                return output
             else:
                 print(f'"{entries}" is/are not in the table "{self._table_name}"')
-        return output
+                return None
 
     def Delete(self, entry: dict):
 
