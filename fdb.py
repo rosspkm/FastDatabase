@@ -1,6 +1,6 @@
 import json
 import os
-from lib import ErrorHandler
+import ErrorHandler
 import re
 
 
