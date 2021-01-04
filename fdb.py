@@ -618,67 +618,60 @@ class database:
     def ShowTable(self):
         header = []
         width = []
-        #       try:
-        with open(f'./databases/{self._database_name}/{self._table_name}.fdb') as file:
-            data = file.readlines()
+        try:
+            with open(f'./databases/{self._database_name}/{self._table_name}.fdb') as file:
+                data = file.readlines()
 
-            for field, values in self._structure.items():
-                header.append(field)
-                if "MaxLen" in self._structure[field]:
-                    width.append(self._structure[field]['MaxLen'])
+                for field, values in self._structure.items():
+                    header.append(field)
+                    if "MaxLen" in self._structure[field]:
+                        width.append(self._structure[field]['MaxLen'])
 
-            temp = {}
-            output = ""
-            line_num = 0
-            top = ""
-            for x in header:
-                for y in width:
-                    temp[x] = y
+                temp = {}
+                output = ""
+                line_num = 0
+                top = ""
+                for x in header:
+                    for y in width:
+                        temp[x] = y
 
-            # printing the top
-            for key, val in temp.items():
-                if int(val) > (len(key)):
-                    top_width = int(val) - len(key)
-                elif len(key) > int(val):
-                    top_width = 0
-                else:
-                    top_width = len(key)
-                top += f'{key}{" " * top_width}|'
-            print(f'+{"-" * (len(top) - 1)}+')
-            print(f'|{top}')
-            print(f'+{"-" * (len(top) - 1)}+')
+                # printing the top
+                for key, val in temp.items():
+                    if int(val) > (len(key)):
+                        top_width = int(val) - len(key)
+                    elif len(key) > int(val):
+                        top_width = 0
+                    else:
+                        top_width = len(key)
+                    top += f'{key}{" " * top_width}|'
+                print(f'+{"-" * (len(top) - 1)}+')
+                print(f'|{top}')
+                print(f'+{"-" * (len(top) - 1)}+')
 
-            # printing the data into the table
-            for i in data:
-                line_num += 1
-                i = json.loads(re.sub("\n", "", str(i)))
-                for field, value in i.items():
-                    if field in temp.keys():
-                        x = temp[field]
+                # printing the data into the table
+                for i in data:
+                    line_num += 1
+                    i = json.loads(re.sub("\n", "", str(i)))
+                    for field, value in i.items():
+                        if field in temp.keys():
+                            x = temp[field]
 
-                        if len(field) > int(x):
-                            act_width = len(field) - len(value)
+                            if len(field) > int(x):
+                                act_width = len(field) - len(value)
 
-                        else:
-                            if len(value) == int(x):
-                                act_width = 0
                             else:
-                                act_width = int(x) - len(value)
-                        output += f'{value}{" " * act_width}|'
-                length = len(output)-1
-                print(f'|{output}')
-                output = ""
+                                if len(value) == int(x):
+                                    act_width = 0
+                                else:
+                                    act_width = int(x) - len(value)
+                            output += f'{value}{" " * act_width}|'
+                    length = len(output) - 1
+                    print(f'|{output}')
+                    output = ""
 
-            # printing the bottom of table
-            print(f'+{"-" * length}+')
+                # printing the bottom of table
+                print(f'+{"-" * length}+')
 
-#        except:
-#           raise ErrorHandler.ShowTable(self._database_name, self._table_name)
+        except:
+            raise ErrorHandler.ShowTable(self._database_name, self._table_name)
 
-                output = ""
-
-            # printing the bottom of table
-            print(f'+{"-" * length}+')
-
-#        except:
-#           raise ErrorHandler.ShowTable(self._database_name, self._table_name)
