@@ -1,0 +1,12 @@
+{
+    "test": {
+        "schema": {
+            "chloe": {
+                "Required": false,
+                "Type": "str",
+                "MinLen": 3,
+                "MaxLen": 10
+            }
+        }
+    }
+}
